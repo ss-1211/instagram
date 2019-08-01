@@ -16,8 +16,9 @@ class PostData: NSObject {
     var name: String?
     var caption: String?
     var date: Date?
-    var comment: String?
-    var commentedUser: String?
+    var comment : [String] = []
+    var commentedUser: [String] = []
+    var commentFull : [String] = []
     var likes: [String] = []
     var isLiked: Bool = false
     
@@ -31,19 +32,20 @@ class PostData: NSObject {
         
         self.name = valueDictionary["name"] as? String
         self.caption = valueDictionary["caption"] as? String
-        self.comment = valueDictionary["comment"] as? String
-        self.commentedUser = valueDictionary["commentedUser"] as? String
-        
         let time = valueDictionary["time"] as? String
         self.date = Date(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
         if let likes = valueDictionary["likes"] as? [String] {
             self.likes = likes
         }
+    
         for likedId in self.likes {
             if likedId == myId {
                 self.isLiked = true
                 break
             }
+        }
+        if let commentFull = valueDictionary["commentFull"] as? [String] {
+            self.commentFull = commentFull
         }
     }
 }

@@ -22,6 +22,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var commentLable: UILabel!
     @IBOutlet weak var commentButton: UIButton!
     
+    var fullText: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,10 +53,13 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
-        if postData.comment == nil {
+        if postData.commentFull.isEmpty {
             self.commentLable.text = "コメントはありません"
         } else {
-        self.commentLable.text = "\(postData.commentedUser!) : \(postData.comment!)"
+            for each in postData.commentFull {
+                fullText += each
+                self.commentLable.text = fullText
+            }
         }
     }
     

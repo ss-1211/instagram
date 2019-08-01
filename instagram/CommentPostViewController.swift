@@ -20,15 +20,15 @@ class CommentPostViewController: UIViewController {
     @IBAction func handleCommentPostButton(_ sender: UIButton) {
         
         let postRef = Database.database().reference().child(Const.PostPath).child(postArray.id!)
-        postArray.comment?.append(commentTextField.text!)
+        //ここで配列に入れる
+        postArray.comment.append(commentTextField.text!)
         let commentedUser = Auth.auth().currentUser?.displayName
-        postArray.commentedUser?.append(commentedUser!)
+        //配列に入れる
+        postArray.commentedUser.append(commentedUser!)
         
-        let commentedU = ["commentedUser" : postArray.commentedUser]
-        let comment = ["comment" : postArray.comment]
+        let commentFull = ["commentFull" : "\(postArray.commentedUser): \(postArray.comment)"]
         
-        postRef.updateChildValues(commentedU)
-        postRef.updateChildValues(comment)
+        postRef.updateChildValues(commentFull)
         
         SVProgressHUD.showSuccess(withStatus: "コメント投稿しました")
         
