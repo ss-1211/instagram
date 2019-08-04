@@ -21,12 +21,13 @@ class CommentPostViewController: UIViewController {
         
         let postRef = Database.database().reference().child(Const.PostPath).child(postArray.id!)
         //ここで配列に入れる
-        postArray.comment.append(commentTextField.text!)
         let commentedUser = Auth.auth().currentUser?.displayName
-        //配列に入れる
-        postArray.commentedUser.append(commentedUser!)
+        let comment = commentedUser! + String(":") + commentTextField.text! + String("\n")
         
-        let commentFull = ["commentFull" : "\(postArray.commentedUser): \(postArray.comment)"]
+        //配列に入れる
+        postArray.commentFull.append(comment)
+        
+        let commentFull = ["commentFull" : postArray.commentFull]
         
         postRef.updateChildValues(commentFull)
         

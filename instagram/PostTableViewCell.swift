@@ -36,6 +36,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func setPostData(_ postData: PostData) {
+        self.commentLable.text = "コメントなし"
         self.postImageView.image = postData.image
         self.captionLabel.text = "\(postData.name!) : \(postData.caption!) "
         let likeNumber = postData.likes.count
@@ -53,10 +54,8 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
-        if postData.commentFull.isEmpty {
-            self.commentLable.text = "コメントはありません"
-        } else {
-            for each in postData.commentFull {
+        if let test:[String] = postData.commentFull{
+            for each in test {
                 fullText += each
                 self.commentLable.text = fullText
             }
