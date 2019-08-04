@@ -59,6 +59,7 @@ class PostTableViewCell: UITableViewCell {
                 fullText += each
                 self.commentLable.text = fullText
             }
+            fullText = ""
         }
     }
     
